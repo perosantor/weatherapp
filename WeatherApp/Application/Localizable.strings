@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  WeatherApp
+
+  Created by Petar Santor on 10/29/18.
+  Copyright © 2018 Apptisan. All rights reserved.
+*/
+
+//WeatherDetails screen
+
+"invalid_api_key_error" = "Invalid API key";
+"default_error_message" = "Unknown error";

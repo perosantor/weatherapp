@@ -23,7 +23,7 @@ protocol Coordinator {
 
 extension Coordinator {
     func startRootFlow(viewController: UIViewController,
-                       hideNavBar: Bool = true) -> UINavigationController {
+                       hideNavBar: Bool = false) -> UINavigationController {
         guard let sharedWindow = UIApplication.shared.delegate?.window,
             let window = sharedWindow else { return UINavigationController() }
         

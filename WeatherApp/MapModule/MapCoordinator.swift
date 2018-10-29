@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
 class MapCoordinator: NavigatingCoordinator {
     
@@ -28,5 +29,13 @@ class MapCoordinator: NavigatingCoordinator {
         let vc: MapViewController = UIStoryboard(storyboard: .main).instantiateVC()
         vc.coordinator = self
         navigationController = startRootFlow(viewController: vc)
+    }
+    
+    @objc func goToWeatherDetails(forLocation location: CLLocationCoordinate2D) {
+        let vc: WeatherDetailsViewController = UIStoryboard(storyboard: .main).instantiateVC()
+        vc.title = "Weather Details"
+        vc.location = location
+        navigationController.pushViewController(vc, animated: true)
+        navigationController.navigationBar.isTranslucent = false
     }
 }

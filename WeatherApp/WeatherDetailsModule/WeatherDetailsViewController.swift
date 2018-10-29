@@ -7,24 +7,53 @@
 //
 
 import UIKit
+import CoreLocation
+import SVProgressHUD
 
 class WeatherDetailsViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    // MARK: - Properties
+    
+    var location: CLLocationCoordinate2D? = nil
+    let service = WeatherDetailsService()
+    
+    // MARK: - Outlets
+    
+    @IBOutlet weak var labelCurrentLocationDetails: UILabel! {
+        didSet {
+            labelCurrentLocationDetails.text = "/"
+        }
     }
     
+    // MARK: - Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+     
+        SVProgressHUD.show()
+        if let latitude = location?.latitude,
+            let longitude = location?.longitude {
+            
+            service.fetchWeatherData(latitude: "\(latitude)", longitude: "\(longitude)") { (result) in
+                switch result {
+                case .success(let json):
+                    SVProgressHUD.dismiss()
+                    print(json)
+                    if let weatherDetails = WeatherDetails.parseWeatherDetails(from: json) {
+                        self.labelCurrentLocationDetails.text = weatherDetails.desc
+                    }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+                case .failure(let error):
+                    var errorMsg = "error"
+                    switch error {
+                    case NetworkingError.invalidAPIKey:
+                        errorMsg = "invalid_api_key_error".localized
+                    default:
+                        errorMsg = "default_error_message".localized
+                    }
+                    SVProgressHUD.showError(withStatus: errorMsg)
+                }
+            }
+        }
     }
-    */
-
 }

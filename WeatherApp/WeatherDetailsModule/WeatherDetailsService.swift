@@ -8,12 +8,11 @@
 
 import Foundation
 
-class UniversityRequest: APIRequest {
-    var method = RequestType.GET
-    var path = "search"
-    var parameters = ["": ""]
+class WeatherDetailsService: WeatherJSONClient {
     
-    init(name: String) {
-        parameters["name"] = name
+    func fetchWeatherData(latitude:String, longitude:String, _ completionHandler: @escaping JSONCompletionHandler) {
+        AlamofireJSONClient.makeAPICall(to: WeatherDataEndpoint.weather(latitude: latitude, longitude: longitude)) { (result) in
+            self.handle(result: result, completionHandler: completionHandler)
+        }
     }
 }

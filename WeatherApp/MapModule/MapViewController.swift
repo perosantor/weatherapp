@@ -8,25 +8,31 @@
 
 import UIKit
 import MapKit
+import RxSwift
 
 class MapViewController: UIViewController {
     
     // MARK: - Properties
     
     var coordinator: MapCoordinator!
+    var currentLocation: Variable<CLLocation>?
     
     //MARK: - Outlets
     
     @IBOutlet weak var mapView: MKMapView!
-
+    
+    // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addGestureRecognizerToMap()
         mapView.showsUserLocation = true
+        LocationManager.shared.delegate = self
         LocationManager.shared.checkLocationAuthorizationStatus()
     }
+    
+    // MARK: Utilities
     
     func addGestureRecognizerToMap() {
         let tap = UITapGestureRecognizer(target: self,
@@ -40,16 +46,28 @@ class MapViewController: UIViewController {
         if let touchLocation = gestureRecognizer?.location(in: mapView) {
             let locationCoordinate = mapView.convert(touchLocation,
                                                      toCoordinateFrom: mapView)
-            print("Tapped at lat: \(locationCoordinate.latitude) long: \(locationCoordinate.longitude)")
-            
-            
+            coordinator.goToWeatherDetails(forLocation: locationCoordinate)
         }
     }
     
 }
 
+// MARK: UIGestureRecognizerDelegate
+
 extension MapViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+}
+
+// MARK: LocationManagerDelegate
+
+extension MapViewController: LocationManagerDelegate {
+    func locationUpdated(_ newRegion: MKCoordinateRegion) {
+        self.mapView.setRegion(newRegion, animated: true)
+    }
+    
+    func locationUpdateError(_ error: LocationError) {
+        print("error")
     }
 }

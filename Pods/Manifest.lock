@@ -1,21 +1,33 @@
 PODS:
+  - Alamofire (4.7.3)
+  - ObjectMapper (3.3.0)
   - RxCocoa (4.3.1):
     - RxSwift (~> 4.0)
   - RxSwift (4.3.1)
+  - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
+  - Alamofire
+  - ObjectMapper
   - RxCocoa
   - RxSwift
+  - SVProgressHUD
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - ObjectMapper
     - RxCocoa
     - RxSwift
+    - SVProgressHUD
 
 SPEC CHECKSUMS:
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
   RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
   RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 46f8641c67bd74471cc017347b131ade8bcc19b1
+PODFILE CHECKSUM: 5908c8fb1981696e743b2f5d43d034de4d158f58
 
 COCOAPODS: 1.5.3

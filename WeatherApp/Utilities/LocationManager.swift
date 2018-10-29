@@ -10,9 +10,19 @@ import Foundation
 import CoreLocation
 import MapKit
 
+protocol LocationManagerDelegate {
+    func locationUpdated(_ newRegion: MKCoordinateRegion)
+    func locationUpdateError(_ error: LocationError)
+}
+
+enum LocationError : Error {
+    case unknownError
+}
+
 class LocationManager: NSObject {
-    static let shared = LocationManager()
     
+    static let shared = LocationManager()
+    var delegate: LocationManagerDelegate?
     var locationManager: CLLocationManager?
     
     private override init() {
@@ -24,6 +34,7 @@ class LocationManager: NSObject {
         }
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
+        locationManager.startUpdatingLocation()
     }
     
     // MARK: - Utilities
@@ -32,7 +43,7 @@ class LocationManager: NSObject {
                          didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .authorizedAlways, .authorizedWhenInUse:
-            print("update location")
+            locationManager?.startUpdatingLocation()
         default:
             // TODO: location not enabled, perhaps inform user
             print("update location")
@@ -43,12 +54,14 @@ class LocationManager: NSObject {
         let status = CLLocationManager.authorizationStatus()
         switch status {
         case .authorizedAlways, .authorizedWhenInUse:
-            print("authorized")
+            locationManager?.startUpdatingLocation()
         default:
             locationManager?.requestAlwaysAuthorization()
         }
     }
 }
+
+// MARK: - CLLocationManagerDelegate
 
 extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -56,13 +69,13 @@ extension LocationManager: CLLocationManagerDelegate {
             let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
             let region = MKCoordinateRegion(center: center,
                                             span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-            
-            //self.map.setRegion(region, animated: true)
+            self.delegate?.locationUpdated(region)
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        // TODO: handle error use cases
+        // TODO: Handle errors to cover all use cases
+        self.delegate?.locationUpdateError(LocationError.unknownError)
     }
     
 }

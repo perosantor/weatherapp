@@ -14,6 +14,10 @@
 		088E3FED21872627007AD766 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088E3FEC21872627007AD766 /* APIRequest.swift */; };
 		088E3FEF21872687007AD766 /* WeatherDetailsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088E3FEE21872687007AD766 /* WeatherDetailsService.swift */; };
 		088E3FF12187270C007AD766 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088E3FF02187270C007AD766 /* APIClient.swift */; };
+		088E3FF421872B2B007AD766 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088E3FF321872B2B007AD766 /* Coordinator.swift */; };
+		088E3FF621872B39007AD766 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088E3FF521872B39007AD766 /* AppCoordinator.swift */; };
+		088E3FF921872C2F007AD766 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088E3FF821872C2F007AD766 /* MapCoordinator.swift */; };
+		088E3FFB21872CEA007AD766 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088E3FFA21872CEA007AD766 /* Utils.swift */; };
 		08EC80A42186EDBD0007615C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EC80A32186EDBD0007615C /* AppDelegate.swift */; };
 		08EC80A92186EDBD0007615C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08EC80A72186EDBD0007615C /* Main.storyboard */; };
 		08EC80AB2186EDC00007615C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08EC80AA2186EDC00007615C /* Assets.xcassets */; };
@@ -52,6 +56,10 @@
 		088E3FEC21872627007AD766 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		088E3FEE21872687007AD766 /* WeatherDetailsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailsService.swift; sourceTree = "<group>"; };
 		088E3FF02187270C007AD766 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		088E3FF321872B2B007AD766 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		088E3FF521872B39007AD766 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		088E3FF821872C2F007AD766 /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
+		088E3FFA21872CEA007AD766 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		08EC80A02186EDBD0007615C /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08EC80A32186EDBD0007615C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08EC80A82186EDBD0007615C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -109,19 +117,46 @@
 				08EC80AA2186EDC00007615C /* Assets.xcassets */,
 				08EC80AC2186EDC00007615C /* LaunchScreen.storyboard */,
 				088E3FE8218710A6007AD766 /* LocationManager.swift */,
+				088E3FFA21872CEA007AD766 /* Utils.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
 		};
-		088E3FE721870B5C007AD766 /* ViewController */ = {
+		088E3FE721870B5C007AD766 /* MapModule */ = {
 			isa = PBXGroup;
 			children = (
 				088E3FE22186FA5D007AD766 /* MapViewController.swift */,
+				088E3FF821872C2F007AD766 /* MapCoordinator.swift */,
+			);
+			path = MapModule;
+			sourceTree = "<group>";
+		};
+		088E3FF221872AFE007AD766 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				088E3FEC21872627007AD766 /* APIRequest.swift */,
+				088E3FF02187270C007AD766 /* APIClient.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		088E3FF721872B3F007AD766 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				088E3FF321872B2B007AD766 /* Coordinator.swift */,
+				088E3FF521872B39007AD766 /* AppCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		088E3FFC21872FB0007AD766 /* WeatherDetailsModule */ = {
+			isa = PBXGroup;
+			children = (
 				088E3FE421870075007AD766 /* WeatherDetailsViewController.swift */,
 				088E3FEA21871C38007AD766 /* WeatherDetails.swift */,
 				088E3FEE21872687007AD766 /* WeatherDetailsService.swift */,
 			);
-			path = ViewController;
+			path = WeatherDetailsModule;
 			sourceTree = "<group>";
 		};
 		08EC80972186EDBC0007615C = {
@@ -151,9 +186,10 @@
 			children = (
 				08EC80AF2186EDC00007615C /* Info.plist */,
 				088E3FE621870546007AD766 /* Application */,
-				088E3FE721870B5C007AD766 /* ViewController */,
-				088E3FEC21872627007AD766 /* APIRequest.swift */,
-				088E3FF02187270C007AD766 /* APIClient.swift */,
+				088E3FE721870B5C007AD766 /* MapModule */,
+				088E3FFC21872FB0007AD766 /* WeatherDetailsModule */,
+				088E3FF721872B3F007AD766 /* Coordinator */,
+				088E3FF221872AFE007AD766 /* Networking */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
@@ -413,12 +449,16 @@
 			files = (
 				088E3FE9218710A6007AD766 /* LocationManager.swift in Sources */,
 				08EC80A42186EDBD0007615C /* AppDelegate.swift in Sources */,
+				088E3FF921872C2F007AD766 /* MapCoordinator.swift in Sources */,
+				088E3FF621872B39007AD766 /* AppCoordinator.swift in Sources */,
 				088E3FE32186FA5D007AD766 /* MapViewController.swift in Sources */,
 				088E3FF12187270C007AD766 /* APIClient.swift in Sources */,
 				088E3FEF21872687007AD766 /* WeatherDetailsService.swift in Sources */,
 				088E3FEB21871C38007AD766 /* WeatherDetails.swift in Sources */,
 				088E3FED21872627007AD766 /* APIRequest.swift in Sources */,
 				088E3FE521870075007AD766 /* WeatherDetailsViewController.swift in Sources */,
+				088E3FF421872B2B007AD766 /* Coordinator.swift in Sources */,
+				088E3FFB21872CEA007AD766 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,3 +7,17 @@
 //
 
 import Foundation
+import UIKit
+
+class AppCoordinator: Coordinator {
+    static let shared = AppCoordinator()
+    var rootNavController: UINavigationController!
+    
+    private init() {}
+    
+    func start() {
+        let coordinator = MapCoordinator(appCoordinator: self)
+        coordinator.start()
+        rootNavController = coordinator.navigationController
+    }
+}
